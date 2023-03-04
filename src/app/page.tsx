@@ -20,11 +20,11 @@ export default function Home() {
           >
             By{' '}
             <Image
-              src="/vercel.svg"
+              src="/favicon.ico"
               alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
+              
+              width={50}
+              height={50}
               priority
             />
           </a>
@@ -34,10 +34,10 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/next.svg"
+          src="/favicon.ico"
           alt="Next.js Logo"
-          width={180}
-          height={37}
+          width={100}
+          height={100}
           priority
         />
         <div className={styles.thirteen}>
