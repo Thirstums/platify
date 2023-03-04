@@ -1,10 +1,13 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
+import { getPlaylist } from '@/pages/api/spotify-service'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default async function Home() {
+  const playlist = await getPlaylist();
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
