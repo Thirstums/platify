@@ -1,12 +1,18 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
-import { getPlaylist } from '@/pages/api/spotify-service'
+import { addTracksToPlaylist, createPlaylist, searchTrack } from '@/pages/api/spotify-service'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default async function Home() {
-  const playlist = await getPlaylist();
+  const uri = await searchTrack('Shape of you');
+  const playlistId = await createPlaylist('Platify', 'your mum', false, false);
+
+  if (uri && playlistId) {
+    const tracks = [uri];
+    await addTracksToPlaylist(playlistId, tracks);
+  }
 
   return (
     <main className={styles.main}>
