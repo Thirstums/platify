@@ -43,4 +43,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Platify is a Spotify Playlist Generator for IOS and Android phones
 
-![Platify](favicon.ico)
+![Platify](/img/PlatifyLogo.png)
