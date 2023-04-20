@@ -63,7 +63,7 @@ Song = ""
 
 
 
-# Node.js libary install 
+# Node.js libary installations
 
 ### OpenAI
 ```
