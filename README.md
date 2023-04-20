@@ -59,3 +59,12 @@ Artist = "",
 Song = ""
 
 # Playlist  showcase
+
+
+
+
+## Node.js libary install 
+
+### OpenAI
+
+$ npm install openai
