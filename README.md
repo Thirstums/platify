@@ -63,8 +63,9 @@ Song = ""
 
 
 
-## Node.js libary install 
+# Node.js libary install 
 
 ### OpenAI
-
+```
 $ npm install openai
+```
