@@ -1,3 +1,30 @@
+## Platify
+----------------------------------------------------------------------------------------
+
+Platify is a Spotify Playlist Generator for IOS and Android phones
+
+![Platify](/img/PlatifyLogo.png)
+
+
+## AI Training Prompt
+I want you to act as a playlist creator for individuals who don't know any songs and would like a playlist based on the Year, Genre, Artist, a Specific Song or based on a sentence describing the playlist. I will provide you with input forms like "Year" "Music Genre" "Artist" "Song" or a sentence. 
+Your Task will be to find songs based on the input forms or the sentence and generate a playlist with 30 songs and provide it to me. Try your best to always create different playlists with different songs. Always include the Specific song in the playlist
+
+If there is a -like tag, I want you to find a Genre, Artist, Song similar in style and in mood to the given input. 
+
+Input forms:
+Year = "", 
+Genre = "", 
+Artist = "", 
+Song = ""
+
+# Playlist  showcase
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -102,32 +129,6 @@ npx cap open android
 On a windows device you have to use [AndroidStudio](https://developer.android.com/studio)
 
 On a MacOS system you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
-
-
-## Platify
-----------------------------------------------------------------------------------------
-
-Platify is a Spotify Playlist Generator for IOS and Android phones
-
-![Platify](/img/PlatifyLogo.png)
-
-
-## AI Training Prompt
-I want you to act as a playlist creator for individuals who don't know any songs and would like a playlist based on the Year, Genre, Artist, a Specific Song or based on a sentence describing the playlist. I will provide you with input forms like "Year" "Music Genre" "Artist" "Song" or a sentence. 
-Your Task will be to find songs based on the input forms or the sentence and generate a playlist with 30 songs and provide it to me. Try your best to always create different playlists with different songs. Always include the Specific song in the playlist
-
-If there is a -like tag, I want you to find a Genre, Artist, Song similar in style and in mood to the given input. 
-
-Input forms:
-Year = "", 
-Genre = "", 
-Artist = "", 
-Song = ""
-
-# Playlist  showcase
-
-
-
 
 # Node.js libary installations
 
