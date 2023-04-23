@@ -99,7 +99,7 @@ You can Open the projects in your terminal with
 npx cap open ios
 npx cap open android
 ```
-on a windows device you have to use [AndroidStudio](https://developer.android.com/studio)
+On a windows device you have to use [AndroidStudio](https://developer.android.com/studio)
 
 On a MacOS system you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
 
