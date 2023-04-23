@@ -1,7 +1,7 @@
 ## Platify
 ----------------------------------------------------------------------------------------
 
-Platify is a Spotify Playlist Generator for IOS and Android phones
+Platify is a Spotify Playlist Generator using AI for IOS and Android
 
 ![Platify](/img/PlatifyLogo.png)
 
