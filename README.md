@@ -133,6 +133,13 @@ In order to programm IOS applications on Windows you will need set up a Virtual 
 
 On MacOS systems you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
 
+##info
+
+If you make any changes to your capacitor.config.ts File you need to sync it again.
+```
+npx cap sync
+```
+
 
 # OpenAI
 ```
