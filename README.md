@@ -128,9 +128,10 @@ You can Open the projects in your terminal with
 npx cap open ios
 npx cap open android
 ```
-On a windows device you have to use [AndroidStudio](https://developer.android.com/studio)
+On Windows device's you have to use [AndroidStudio](https://developer.android.com/studio)
+In order to programm IOS applications on Windows you will need set up a Virtual MacOs system
 
-On a MacOS system you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
+On MacOS systems you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
 
 
 # OpenAI
