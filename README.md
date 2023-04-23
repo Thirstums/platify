@@ -37,6 +37,72 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Capacitor
+Capacitor is used to convert a Next.js app into a Mobile app
+
+## Next.js Configuration (get it ready for Capacitor)
+
+add e new block to your Package.json file (in the scrits object)
+```
+"static": "next build && next export"
+```
+run with
+```
+npm run static
+```
+
+This won't work yet, due to the image optimaziation. Change the next.config.js file to the code below so it can work. Then run the command again.
+```
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+}
+
+module.exports = {
+  nextConfig, 
+  images: {
+    unoptimized: true
+  }
+
+}
+```
+## Install Capacitor
+
+In your Root directory install the Capacitor main npm dependencie
+```
+npm i -D @capacitor/cli
+```
+
+Initialize Capacitor
+```
+npx cap init
+```
+go to the newly created Capacitor.config.ts file and change the webDir from 'public' to 'out'
+
+Then proceed installing the rest of the npm dependencies
+```
+npm i @capacitor/core
+npm install @capacitor/ios 
+npm install @capacitor/android
+```
+
+Add ios & Android Code
+```
+npx cap add ios
+npx cap add android
+```
+
+You can Open the projects in your terminal with
+```
+npx cap open ios
+npx cap open android
+```
+on a windows device you have to use [AndroidStudio](https://developer.android.com/studio)
+
+On a MacOS system you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
+
 
 ## Platify
 ----------------------------------------------------------------------------------------
