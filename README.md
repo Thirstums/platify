@@ -1,4 +1,4 @@
-## Platify
+# Platify
 ----------------------------------------------------------------------------------------
 
 Platify is a Spotify Playlist Generator using AI for IOS and Android
@@ -21,7 +21,7 @@ Song = ""
 # Playlist  showcase
 
 
-
+Coming soon
 
 
 
@@ -64,7 +64,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Capacitor
+
+
+# Capacitor
 Capacitor is used to convert a Next.js app into a Mobile app
 
 ## Next.js Configuration (get it ready for Capacitor)
@@ -130,9 +132,8 @@ On a windows device you have to use [AndroidStudio](https://developer.android.co
 
 On a MacOS system you can work with [Xcode](https://developer.apple.com/xcode/) & [Android Studio](https://developer.android.com/studio)
 
-# Node.js libary installations
 
-### OpenAI
+# OpenAI
 ```
 $ npm install openai
 ```
