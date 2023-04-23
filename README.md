@@ -67,7 +67,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 # Capacitor
-Capacitor is used to convert a Next.js app into a Mobile app
+Capacitor is used to convert your existing Next.js app (code) into a Mobile app
 
 ## Next.js Configuration (get it ready for Capacitor)
 
