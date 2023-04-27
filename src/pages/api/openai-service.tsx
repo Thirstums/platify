@@ -1,5 +1,4 @@
 import {OpenAIApi} from 'openai/dist/api'
-
 import { Configuration } from "openai/dist/configuration";
 
 const configuration = new Configuration({
@@ -9,7 +8,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function getTrackList() {
-    return await openai.createCompletion({
+    const gptResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `I want you to act as a playlist creator for individuals who don't know any songs 
         and would like a playlist based on the Year, Genre, Artist, a Specific Song or based on a sentence describing the playlist. 
@@ -24,5 +23,11 @@ export async function getTrackList() {
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
-      });
+      })
+
+      //returns the first response (there is only one)
+      const Playlist = gptResponse.data.choices[0].text
+
+      return Playlist;
 } 
+
