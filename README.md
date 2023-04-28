@@ -3,10 +3,6 @@
 
 Platify is a Spotify Playlist Generator using AI for IOS and Android.
 
-### future
-
-- Desktop
-
 ![Platify](/img/PlatifyLogo.png)
 
 
