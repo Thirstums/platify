@@ -1,6 +1,10 @@
 import {OpenAIApi} from 'openai/dist/api'
 import { Configuration } from "openai/dist/configuration";
 
+
+//Import for User Input (Tags to be used for playlist generation)
+import { UserInputforms } from '../index';
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -8,6 +12,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function getTrackList() {
+  try{
     const gptResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `I want you to act as a playlist creator for individuals who don't know any songs 
@@ -17,17 +22,30 @@ export async function getTrackList() {
         Try your best to always create different playlists with different songs. 
         Always include the Specific song in the playlist\n\n
         if there is a -like tag, I want you to find a Genre, Artist, Song similar in style and in mood to the given input. \n\n
-        Input forms:\nYear = \"\", \nGenre = \"\", \nArtist = \"\", \nSong = \"\"\n\n# Playlist  showcase`,
+        Input forms: """
+          ${UserInputforms}
+        """
+        # Playlist  showcase`,
         temperature: 1,
         max_tokens: 256,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
       })
-
-      //returns the first response (there is only one)
+    
+      //returns the first response (there is only one in this case)
       const Playlist = gptResponse.data.choices[0].text
 
       return Playlist;
-} 
+
+      
+
+    } catch (error) {
+        console.error(error)
+        return error;
+}};
+
+
+
+ 
 
