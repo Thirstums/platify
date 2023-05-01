@@ -1,25 +1,23 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 
-// TODO: fix localStorage error:
-/*
 export default function requireAuth(WrappedComponent: any) {
   const HOC = (props: any) => {
     const router = useRouter();
 
     // Check if the authorization code exists in local storage
-    const isAuthenticated = !!localStorage.getItem('accessToken');
+    if (typeof window !== "undefined") {
+      const accessToken = localStorage.getItem('accessToken');
 
-    // If the user is not authenticated, redirect them to the login page
-    useEffect(() => {
-      if (!isAuthenticated) {
+      if (!accessToken) {
+        // If the access token is not present, redirect the user to the login page
         router.push('/login');
+        return null;
       }
-    }, [isAuthenticated, router]);
 
-    // If the user is authenticated, render the protected page
-    return isAuthenticated ? <WrappedComponent {...props} /> : null;
+      // If the access token is present, render the wrapped component
+      return <WrappedComponent {...props} />;
+    }
   };
 
   return HOC;
-};*/
+}

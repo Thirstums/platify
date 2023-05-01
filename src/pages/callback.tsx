@@ -7,8 +7,11 @@ export default function Callback() {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const { code } = router.query;
-      const data = await exchangeCodeForToken(code);
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      const state = urlParams.get('state');
+
+      const data = await exchangeCodeForToken(code, state);
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
       router.push('/');

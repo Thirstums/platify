@@ -1,7 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node'
 import queryString from 'query-string'
 import crypto from 'crypto'
-import Router from 'next/router'
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI } = process.env;
 
@@ -29,31 +28,30 @@ export async function getAuthorizationUrl() {
     const authorizationUrl = `https://accounts.spotify.com/authorize?${queryParams}`;
     localStorage.setItem('codeVerifier', codeVerifier);
     localStorage.setItem('state', state);
-
+    
     return authorizationUrl;
 }
 
-export async function exchangeCodeForToken(code: any) {
+export async function exchangeCodeForToken(code: any, state: any) {
     const codeVerifier = localStorage.getItem('codeVerifier');
-    const state = localStorage.getItem('state');
+    const savedState = localStorage.getItem('state');
     var tokens = { accessToken: '', refreshToken: '' };
 
-    if (state !== Router.query.state) {
+    if (state !== savedState) {
         throw new Error('Invalid state');
     }
 
     await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: queryString.stringify({
             grant_type: 'authorization_code',
-            code,
+            code: code,
             redirect_uri: SPOTIFY_REDIRECT_URI,
             code_verifier: codeVerifier,
-            client_id: SPOTIFY_CLIENT_ID,
-            client_secret: SPOTIFY_CLIENT_SECRET,
+            client_id: SPOTIFY_CLIENT_ID
         }),
     })
     .then(response => {
@@ -114,7 +112,7 @@ export async function createPlaylist(title: string, description: string, collabo
 // searches spotify track and returns uri:
 export async function searchTrack(query: string) {
     let uri: any;
-
+    
     await spotifyApi.searchTracks(query, { limit: 5}).then(
         function(data) {
             uri = data.body.tracks?.items[0].uri;
@@ -135,3 +133,20 @@ export async function addTracksToPlaylist(id: string, tracks: string[]) {
         }
     );
 }
+
+/*
+export async function createPlaylistByMatchingSongs() {
+    let tracks = ['ching cheng hanji', 'red sun in the sky'];
+    let spotifyTracks = [];
+
+    for (let i = 0; i < tracks.length; i++) {
+        let uri = await searchTrack(tracks[i]);
+        spotifyTracks.push(uri);
+    }
+
+    const playlistId = await createPlaylist('CHING CHONG', 'approved by mao zedong', false, false);
+
+    if (playlistId && spotifyTracks.length > 0) {
+        addTracksToPlaylist(playlistId, spotifyTracks);
+    }
+}*/
