@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { getTrackList } from './api/openai-service'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,14 +15,46 @@ return "2000 chill playlist pop";
 
 export default function Home() {
 
+// Handles the submit event on form submit.
+const handleSubmit = async (event) => {
+  // Stop the form from submitting and refreshing the page.
+  event.preventDefault()
 
+  // Get data from the form.
+  const data = {
+    UserInputforms: event.target.UserInputforms.value
+    
+  }
 
+  // Send the data to the server in JSON format.
+  const JSONdata = JSON.stringify(data)
 
-  function UserInput() {
-  
+  // API endpoint where we send form data.
+  const endpoint = '/api/form'
+
+  // Form the request for sending data to the server.
+  const options = {
+    // The method is POST because we are sending data.
+    method: 'POST',
+    // Tell the server we're sending JSON.
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    // Body of the request is the JSON data we created above.
+    body: JSONdata,
+  }
+
+  // Send the form data to our forms API on Vercel and get a response.
+  const response = await fetch(endpoint, options)
+
+  // Get the response data from server as JSON.
+  // If server returns the name submitted, that means the form works.
+  const result = await response.json()
+  alert(`are those your Playlist Tags: ${result.data}`)
+
+  getTrackList(event.target.UserInputforms.value);
+
 }
-
-
 
   return (
     <>
@@ -34,14 +67,17 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.description}>
         
-        
-        
-        <form id="form" onSubmit="true">
-          <input  type="text" id="Tags" />
-          <input  type="submit" onClick="" />
-        </form>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="UserInputforms">Playlist Tags</label>
+            <input type="text" id='UserInputforms' name='UserInputforms' />
 
+            <button type='submit'>Submit</button>
+          </form>
+          
 
+          <div>
+          
+          </div>
           <div>
             <a
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -63,80 +99,37 @@ export default function Home() {
 
         <div className={styles.center}>
           <Image
-            className={styles.logo}
-            src="/next.svg"
+            
+            src="/Platifylogo.png"
             alt="Next.js Logo"
             width={180}
-            height={37}
+            height={180}
             priority
           />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
         </div>
 
         <div className={styles.grid}>
           <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https://github.com/Thirstums/platify"
             className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
+              Github <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
+              Platify Official Github
             </p>
-          </a>
 
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
+            <Image
+            
+            src="/GithubLogo.png"
+            alt="Next.js Logo"
+            width={90}
+            height={35}
+            priority
+          />
           </a>
         </div>
       </main>
