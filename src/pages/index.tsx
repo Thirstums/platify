@@ -2,16 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import { createPlaylistByMatchingSongs } from './api/spotify-service'import { getTrackList } from './api/openai-service'
+import { createPlaylistByMatchingSongs } from './api/spotify-service'
+import { getTrackList } from './api/openai-service'
 
 
 const inter = Inter({ subsets: ['latin'] })
-
-
-export function UserInputforms() {
-
-return "2000 chill playlist pop";
-}
 
 export default function Home() {
   let matchedflksadf = [] = [];

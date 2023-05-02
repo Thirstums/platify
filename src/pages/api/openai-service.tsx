@@ -1,12 +1,8 @@
 import {OpenAIApi} from 'openai/dist/api'
 import { Configuration } from "openai/dist/configuration";
-
-
-//Import for User Input (Tags to be used for playlist generation)
-import { UserInputforms } from '../index';
-
+//
 const configuration = new Configuration({
-  apiKey: "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"
+  apiKey: ""
 });
 
 const openai = new OpenAIApi(configuration);
@@ -33,10 +29,10 @@ export async function getTrackList(textInput: string) {
         presence_penalty: 0,
       })
     
-      //returns the first response (there is only one in this case)
+      //returns the first response from OpenAI (there is only one in this case)                                    //splits into array
       const Playlist = gptResponse.data.choices[0].text?.replace('\r', '').replace('\n', '').replace(/ +(?= )/g,'').split('\n');
 
-      
+      //console log for troubleshooting
       console.log(Playlist);
       return Playlist;
     } catch (error) {
