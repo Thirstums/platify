@@ -1,13 +1,13 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken('BQDjRjPTfcuN3zOB6enhWzggzsKOVU33GzoTM8U2c0Eyb1Zxa7DbkL6hj2bKO-AN1Ag0Y6vqGJS_cG0Sp2EeRwqYLAd8AU3TpofneBo9Xuy1zstBs5LQM_2ogRvyHs_AOuSRgsxCw0EixSFDMgdYuF9R75CUF3w7yXF9JkHKsj2bx1tPPxZ-qJTosPSWeznRw-TCCT2iqkvLindXx_Uhg68ui6AkWDNMAL7ZdZdiaGpcGJuyYf4U0xhxofQycPYuRgV76IqiVBdz7zU');
-const matchedSongs: any[] = [];
+spotifyApi.setAccessToken('BQC_pSsXnR2SgNfzj9pNlDDxa5Q5AX9BHe-P7ASnEJDHgnzZfkMdGj6MSFuJF4QjxfbUwBjAbhIucxCA-YCht8HLanDOv6wzcpoLjlRqw732_6LgJY8yIH11UyIrTuuYhChQUIJwa5rCrmcvVpq6ZIaCM-xlUofZlA_uyATSBsA0XQgvJ7D97dkZJ84nwslEqAURGqIxMrDL1ubfCDoOq5ie0J0F0QCnbtjKcLu5hcaHmcRlDMAfDuvmdbqWIIEuPzQDuRj0v368NZk');
+const matchedSongs: string[] = [];    
 
 
 // creates an empty playlist:
 export async function createPlaylist(title: string, description: string, collaborative: boolean, isPublic: boolean) {
-    let playlistId;
+    let playlistId = "";
     await spotifyApi.createPlaylist(title, { description: description, collaborative: collaborative, public: isPublic}).then(
         function(data) {
             playlistId = data.body.id;
@@ -22,7 +22,7 @@ export async function createPlaylist(title: string, description: string, collabo
 
 // searches spotify track and returns uri:
 export async function searchTrack(query: string) {
-    let uri = null;
+    let uri: any;
 
     await spotifyApi.searchTracks(query, { limit: 1}).then(
         function(data) {
@@ -51,9 +51,12 @@ export async function addTracksToPlaylist(id: string, tracks: string[]) {
         const artists = ["adelle", "imagine dragons"];
 
         for (let i = 0; i < tracks.length; i++) {
-            matchedSongs.push(searchTrack(tracks[i]));
+            matchedSongs.push(await searchTrack(tracks[i]));
     }
+    createPlaylist("DummyTest", "This playlist was created with Platify", false, true).then((res => 
 
-    addTracksToPlaylist(JSON.stringify(createPlaylist("WHODAFUGISGIGANI", "This playlist was created with Platify", false, true)), tracks);
+    addTracksToPlaylist(res, matchedSongs))
+    
+    );
     return <p>tracks</p>
 }
