@@ -1,11 +1,9 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken('BQC_pSsXnR2SgNfzj9pNlDDxa5Q5AX9BHe-P7ASnEJDHgnzZfkMdGj6MSFuJF4QjxfbUwBjAbhIucxCA-YCht8HLanDOv6wzcpoLjlRqw732_6LgJY8yIH11UyIrTuuYhChQUIJwa5rCrmcvVpq6ZIaCM-xlUofZlA_uyATSBsA0XQgvJ7D97dkZJ84nwslEqAURGqIxMrDL1ubfCDoOq5ie0J0F0QCnbtjKcLu5hcaHmcRlDMAfDuvmdbqWIIEuPzQDuRj0v368NZk');
+spotifyApi.setAccessToken('');
 const matchedSongs: string[] = [];    
 
-
-// creates an empty playlist:
 export async function createPlaylist(title: string, description: string, collaborative: boolean, isPublic: boolean) {
     let playlistId = "";
     await spotifyApi.createPlaylist(title, { description: description, collaborative: collaborative, public: isPublic}).then(
@@ -20,7 +18,6 @@ export async function createPlaylist(title: string, description: string, collabo
     return playlistId;
 }
 
-// searches spotify track and returns uri:
 export async function searchTrack(query: string) {
     let uri: any;
 
@@ -35,7 +32,6 @@ export async function searchTrack(query: string) {
     return uri;
 }
 
-// adds tracks to a playlist:
 export async function addTracksToPlaylist(id: string, tracks: string[]) {
     await spotifyApi.addTracksToPlaylist(id, tracks).then(
         function(err) {
