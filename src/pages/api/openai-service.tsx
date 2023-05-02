@@ -34,7 +34,8 @@ export async function getTrackList(textInput: string) {
       })
     
       //returns the first response (there is only one in this case)
-      const Playlist = gptResponse.data.choices[0].text?.split("/n")
+      const Playlist = gptResponse.data.choices[0].text?.replace('\r', '').replace('\n', '').replace(/ +(?= )/g,'').split('\n');
+
       
       console.log(Playlist);
       return Playlist;
