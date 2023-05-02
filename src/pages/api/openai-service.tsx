@@ -6,7 +6,7 @@ import { Configuration } from "openai/dist/configuration";
 import { UserInputforms } from '../index';
 
 const configuration = new Configuration({
-  apiKey: ""
+  apiKey: "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"
 });
 
 const openai = new OpenAIApi(configuration);
@@ -23,7 +23,7 @@ export async function getTrackList(textInput: string) {
         Always include the Specific song in the playlist\n\n
         if there is a -like tag, I want you to find a Genre, Artist, Song similar in style and in mood to the given input. \n\n
         Input forms: """
-          2000, PoP 
+         ${textInput}
         """
         # Playlist  showcase`,
         temperature: 1,
@@ -34,14 +34,10 @@ export async function getTrackList(textInput: string) {
       })
     
       //returns the first response (there is only one in this case)
-      const Playlist = gptResponse.data.choices[0].text;
-      let Playlistarr = Playlist?.split('/n')
-      console.log(Playlistarr);
-      return Playlistarr;
-
-
+      const Playlist = gptResponse.data.choices[0].text?.split("/n")
       
-
+      console.log(Playlist);
+      return Playlist;
     } catch (error) {
         console.error(error)
         return error;

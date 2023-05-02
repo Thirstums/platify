@@ -50,7 +50,7 @@ const handleSubmit = async (event) => {
   // Get the response data from server as JSON.
   // If server returns the name submitted, that means the form works.
   const result = await response.json()
-  alert(`are those your Playlist Tags: ${result.data}`)
+    
 
   getTrackList(event.target.UserInputforms.value);
 
@@ -76,7 +76,6 @@ const handleSubmit = async (event) => {
           
 
           <div>
-          
           </div>
           <div>
             <a
