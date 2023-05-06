@@ -1,13 +1,17 @@
 import SpotifyWebApi from 'spotify-web-api-node'
 import queryString from 'query-string'
 import crypto from 'crypto'
+import secureLocalStorage  from  "react-secure-storage";
+import Router from 'next/router';
 
-const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI } = process.env;
+const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+const redirectURI = process.env.SPOTIFY_REDIRECT_URI;
 
 const spotifyApi = new SpotifyWebApi({
-    clientId: SPOTIFY_CLIENT_ID,
-    clientSecret: SPOTIFY_CLIENT_SECRET,
-    redirectUri: SPOTIFY_REDIRECT_URI
+    clientId: clientId,
+    clientSecret: clientSecret,
+    redirectUri: redirectURI
 });
 
 export async function getAuthorizationUrl() {
@@ -16,9 +20,9 @@ export async function getAuthorizationUrl() {
     const codeChallenge = crypto.createHash('sha256').update(codeVerifier).digest('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 
     const queryParams = queryString.stringify({
-        client_id: SPOTIFY_CLIENT_ID,
+        client_id: clientId,
         response_type: 'code',
-        redirect_uri: SPOTIFY_REDIRECT_URI,
+        redirect_uri: redirectURI,
         code_challenge_method: 'S256',
         code_challenge: codeChallenge,
         state,
@@ -26,16 +30,15 @@ export async function getAuthorizationUrl() {
     });
 
     const authorizationUrl = `https://accounts.spotify.com/authorize?${queryParams}`;
-    localStorage.setItem('codeVerifier', codeVerifier);
-    localStorage.setItem('state', state);
+    secureLocalStorage.setItem('codeVerifier', codeVerifier);
+    secureLocalStorage.setItem('state', state);
     
     return authorizationUrl;
 }
 
 export async function exchangeCodeForToken(code: any, state: any) {
-    const codeVerifier = localStorage.getItem('codeVerifier');
-    const savedState = localStorage.getItem('state');
-    var tokens = { accessToken: '', refreshToken: '' };
+    const codeVerifier = secureLocalStorage.getItem('codeVerifier');
+    const savedState = secureLocalStorage.getItem('state');
 
     if (state !== savedState) {
         throw new Error('Invalid state');
@@ -49,9 +52,9 @@ export async function exchangeCodeForToken(code: any, state: any) {
         body: queryString.stringify({
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: SPOTIFY_REDIRECT_URI,
+            redirect_uri: redirectURI,
             code_verifier: codeVerifier,
-            client_id: SPOTIFY_CLIENT_ID
+            client_id: clientId
         }),
     })
     .then(response => {
@@ -62,19 +65,27 @@ export async function exchangeCodeForToken(code: any, state: any) {
     })
     .then(data => {
         spotifyApi.setAccessToken(data.access_token);
-        tokens = data;
+        spotifyApi.setRefreshToken(data.refresh_token);
+        secureLocalStorage.setItem('access_token', data.access_token);
+        secureLocalStorage.setItem('refresh_token', data.refresh_token);
     })
     .catch(error => {
         console.error('Error:', error);
     });
-
-    return tokens;
 };
 
 export async function refreshAccessToken() {
-    const data = await spotifyApi.refreshAccessToken();
-    const newAccessToken = data.body.access_token;
-    spotifyApi.setAccessToken(newAccessToken);
+    const response = await spotifyApi.refreshAccessToken();
+    console.log(response);
+}
+
+export function isAuthenticated() {
+    return secureLocalStorage.getItem('access_token') && secureLocalStorage.getItem('refresh_token');
+}
+
+export async function logout() {
+    secureLocalStorage.clear();
+    Router.push('/')
 }
 
 // gets a playlist
@@ -133,20 +144,3 @@ export async function addTracksToPlaylist(id: string, tracks: string[]) {
         }
     );
 }
-
-/*
-export async function createPlaylistByMatchingSongs() {
-    let tracks = ['ching cheng hanji', 'red sun in the sky'];
-    let spotifyTracks = [];
-
-    for (let i = 0; i < tracks.length; i++) {
-        let uri = await searchTrack(tracks[i]);
-        spotifyTracks.push(uri);
-    }
-
-    const playlistId = await createPlaylist('CHING CHONG', 'approved by mao zedong', false, false);
-
-    if (playlistId && spotifyTracks.length > 0) {
-        addTracksToPlaylist(playlistId, spotifyTracks);
-    }
-}*/

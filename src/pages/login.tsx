@@ -1,18 +1,15 @@
-import { useState } from 'react'
 import { getAuthorizationUrl } from '@/pages/api/spotify'
+import checkAuth from './checkAuth';
 
-export default function Login() {
-  const [isLoading, setIsLoading] = useState(false);
-
+const Login = () => {
   const handleLogin = async () => {
-    setIsLoading(true);
     const authorizationUrl = await getAuthorizationUrl();
     window.location.href = authorizationUrl;
   };
 
   return (
-    <button onClick={handleLogin} disabled={isLoading}>
-      {isLoading ? 'Loading...' : 'Log in with Spotify'}
-    </button>
+    <button onClick={handleLogin}> Log in with Spotify </button>
   );
 };
+
+export default checkAuth(Login);

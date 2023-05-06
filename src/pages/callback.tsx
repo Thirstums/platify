@@ -10,10 +10,7 @@ export default function Callback() {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
       const state = urlParams.get('state');
-
-      const data = await exchangeCodeForToken(code, state);
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      await exchangeCodeForToken(code, state);
       router.push('/');
     };
 
