@@ -2,11 +2,51 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import requireAuth from './checkAuth'
+import secureLocalStorage from 'react-secure-storage'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { logout, refreshAccessToken } from './api/auth/spotify-auth'
+import { addTracksToPlaylist, createPlaylist, getPlaylist, searchTrack } from './api/spotify'
 
 const inter = Inter({ subsets: ['latin'] })
+const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
 
-const Home = () => {
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token: any = secureLocalStorage.getItem('token');
+
+    const intervalId = setInterval(async () => {
+      if(token) {
+        // If the user is online for 55 minutes and the token is about to expire, refresh the token
+        console.log('Refreshing token... (1h in)');
+        refreshAccessToken(token);
+      } else {
+        // If the user somehow got logged out, redirect him to home page
+        router.push('/login');
+      }
+    }, TOKEN_REFRESH_INTERVAL);
+
+    return () => clearInterval(intervalId);
+  }, [router]);
+
+  function handleLogout() {
+    logout();
+    console.log('successfully logged out')
+    router.push('/login');
+  }
+
+  async function createTestPlaylist() {
+    const uri = await searchTrack('Shape of you');
+    const playlistId = await createPlaylist('Platify', 'your mum', false, false);
+
+    if (uri && playlistId) {
+      const tracks = [uri];
+      await addTracksToPlaylist(playlistId, tracks);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -59,6 +99,10 @@ const Home = () => {
             />
           </div>
         </div>
+
+        <button onClick={createTestPlaylist}> Create Test Playlist </button>
+
+        <button onClick={handleLogout}> Logout </button>
 
         <div className={styles.grid}>
           <a
@@ -122,5 +166,3 @@ const Home = () => {
     </>
   )
 }
-
-export default requireAuth(Home);

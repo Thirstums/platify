@@ -1,23 +1,33 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { useState, useEffect } from 'react'
-import { refreshAccessToken } from '@/pages/api/spotify'
-
-const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
+import { useEffect } from 'react'
+import secureLocalStorage from 'react-secure-storage';
+import { useRouter } from 'next/router';
+import { refreshAccessToken } from './api/auth/spotify-auth';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [accessToken, setAccessToken] = useState(null);
-  const [refreshToken, setRefreshToken] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const intervalId = setInterval(async () => {
-      if (refreshToken) {
-        refreshAccessToken();
-      }
-    }, TOKEN_REFRESH_INTERVAL);
+    const token: any = secureLocalStorage.getItem('token');
 
-    return () => clearInterval(intervalId);
-  }, [refreshToken]);
+    if (token) {
+      if (router.pathname === '/login') {
+        // If the user is already logged in and wants to access login page, redirect him to home page
+        console.log('You are already logged in');
+        router.push('/');
+      }
+      if(Date.now() > token.accessTokenExpires!) {
+        // If the access token is expired, refresh it:
+        console.log('Access token expired, refreshing...')
+        refreshAccessToken(token);
+      }
+    } else if(router.pathname === '/') {
+        // If the access token is not present, redirect the user to the login page
+        console.log('initial login')
+        router.push('/login');
+    }
+  }, [router]);
 
   return <Component {...pageProps} />
 }

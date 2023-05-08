@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { exchangeCodeForToken } from '@/pages/api/spotify'
+import { exchangeCodeForToken } from '@/pages/api/auth/spotify-auth'
 
 export default function Callback() {
   const router = useRouter();

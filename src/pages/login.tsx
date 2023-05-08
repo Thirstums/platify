@@ -1,7 +1,6 @@
-import { getAuthorizationUrl } from '@/pages/api/spotify'
-import checkAuth from './checkAuth';
+import { getAuthorizationUrl } from '@/pages/api/auth/spotify-auth'
 
-const Login = () => {
+export default function Login() {
   const handleLogin = async () => {
     const authorizationUrl = await getAuthorizationUrl();
     window.location.href = authorizationUrl;
@@ -11,5 +10,3 @@ const Login = () => {
     <button onClick={handleLogin}> Log in with Spotify </button>
   );
 };
-
-export default checkAuth(Login);
