@@ -2,8 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import { createPlaylistByMatchingSongs } from './api/spotify-service'
-import { getTrackList } from './api/openai-service'
+import { createPlaylistByMatchingSongs } from './api/spotify'
+import { getTrackList } from './api/openai'
 import secureLocalStorage from 'react-secure-storage'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -15,9 +15,8 @@ const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 min
 
 export default function Home() {
 
-
 // Handles the submit event on form submit.
-const handleSubmit = async (event) => {
+const handleSubmit = async (event: any) => {
   // Stop the form from submitting and refreshing the page.
   event.preventDefault()
 

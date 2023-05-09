@@ -16,4 +16,4 @@ export default function handler(req, res) {
     // Found the name.
     // Sends a HTTP success code
     res.status(200).json({ data: `${body.UserInputforms}` })
-  }
+}

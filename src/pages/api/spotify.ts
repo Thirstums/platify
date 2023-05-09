@@ -6,6 +6,9 @@ export const spotifyApi = new SpotifyWebApi({
     redirectUri: process.env.SPOTIFY_REDIRECT_URI
 });
 
+const matchedSongs: string[] = [];
+
+/*
 // gets a playlist
 export async function getPlaylist(id: string) {
     let playlist;
@@ -19,7 +22,7 @@ export async function getPlaylist(id: string) {
         }
     );
     return playlist;
-}
+}*/
 
 // creates an empty playlist:
 export async function createPlaylist(title: string, description: string, collaborative: boolean, isPublic: boolean) {
@@ -58,4 +61,15 @@ export async function addTracksToPlaylist(id: string, tracks: string[]) {
             console.error(err);
         }
     );
+}
+
+export async function createPlaylistByMatchingSongs(tracks: any){
+    for (let i = 0; i < tracks.length; i++) {
+        matchedSongs.push(await searchTrack(tracks[i]));
+        }
+
+    createPlaylist("GAY", "This playlist was created with Platify", false, true).then(res => 
+    addTracksToPlaylist(res, matchedSongs));
+
+    return tracks;
 }
