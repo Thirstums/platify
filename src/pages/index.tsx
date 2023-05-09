@@ -5,12 +5,9 @@ import styles from '@/styles/Home.module.css'
 import { createPlaylistByMatchingSongs } from './api/spotify-service'
 import { getTrackList } from './api/openai-service'
 
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  let matchedflksadf = [] = [];
-  createPlaylistByMatchingSongs(matchedflksadf);
 
 
 // Handles the submit event on form submit.
@@ -50,7 +47,9 @@ const handleSubmit = async (event) => {
   const result = await response.json()
 
 
-  getTrackList(event.target.UserInputforms.value);
+  getTrackList(event.target.UserInputforms.value).then(res =>
+    createPlaylistByMatchingSongs(res)
+  );
 
 }
 
