@@ -9,9 +9,14 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
+    const fetchData = async (token: any) => {
+      refreshAccessToken(token);
+    }
+
     const token: any = secureLocalStorage.getItem('token');
 
     if (token) {
+      console.log(token);
       if (router.pathname === '/login') {
         // If the user is already logged in and wants to access login page, redirect him to home page
         console.log('You are already logged in');
@@ -20,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       if(Date.now() > token.accessTokenExpires!) {
         // If the access token is expired, refresh it:
         console.log('Access token expired, refreshing...')
-        refreshAccessToken(token);
+        fetchData(token);
       }
     } else if(router.pathname === '/') {
         // If the access token is not present, redirect the user to the login page

@@ -56,6 +56,8 @@ export async function exchangeCodeForToken(code: any, state: any) {
         spotifyApi.setAccessToken(data.access_token);
         spotifyApi.setRefreshToken(data.refresh_token);
         
+        secureLocalStorage.clear();
+        
         secureLocalStorage.setItem('token', {
             accessToken: data.access_token,
             refreshToken: data.refresh_token,
@@ -69,30 +71,41 @@ export async function exchangeCodeForToken(code: any, state: any) {
     });
 };
 
-export function refreshAccessToken(token: any) {
-    spotifyApi.setAccessToken(token.accessToken);
-    spotifyApi.setRefreshToken(token.refreshToken);
-
-    spotifyApi.refreshAccessToken()
-
-    spotifyApi.refreshAccessToken().then(
-        function(data) {
-            const { body: refreshTokenResponse } = data;
-
-            secureLocalStorage.setItem('token', {
-                accessToken: refreshTokenResponse.access_token,
-                refreshToken: refreshTokenResponse.refresh_token ?? token.refreshToken,
-                accessTokenExpires: Date.now() + refreshTokenResponse.expires_in * 1000 // 3600 seconds from spotify * 1000 for milliseconds
-            });
+export async function refreshAccessToken(token: any) {
+    await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        function(err) {
-            console.error(err);
-
-            return {
-                error: "RefreshAccessTokenError",
-            };
+        body: queryString.stringify({
+            grant_type: 'refresh_token',
+            refresh_token: token.refreshToken,
+            client_id: spotifyApi.getClientId()
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('HTTP status ' + response.status);
         }
-    );
+        return response.json();
+    })
+    .then(data => {
+        spotifyApi.setAccessToken(data.access_token);
+        spotifyApi.setRefreshToken(data.refresh_token);
+        
+        secureLocalStorage.clear();
+
+        secureLocalStorage.setItem('token', {
+            accessToken: data.access_token,
+            refreshToken: data.refresh_token,
+            accessTokenExpires: Date.now() + data.expires_in * 1000 // 3600 seconds from spotify * 1000 for milliseconds
+        });
+
+        console.log('succesfully refreshed token');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 export function logout() {

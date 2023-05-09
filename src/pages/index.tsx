@@ -6,7 +6,7 @@ import secureLocalStorage from 'react-secure-storage'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { logout, refreshAccessToken } from './api/auth/spotify-auth'
-import { addTracksToPlaylist, createPlaylist, getPlaylist, searchTrack } from './api/spotify'
+import { addTracksToPlaylist, createPlaylist, searchTrack } from './api/spotify'
 
 const inter = Inter({ subsets: ['latin'] })
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
@@ -15,13 +15,17 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    const token: any = secureLocalStorage.getItem('token');
+    const fetchData = async (token: any) => {
+      refreshAccessToken(token);
+    }
 
     const intervalId = setInterval(async () => {
+      const token: any = secureLocalStorage.getItem('token');
+      
       if(token) {
         // If the user is online for 55 minutes and the token is about to expire, refresh the token
         console.log('Refreshing token... (1h in)');
-        refreshAccessToken(token);
+        fetchData(token);
       } else {
         // If the user somehow got logged out, redirect him to home page
         router.push('/login');
