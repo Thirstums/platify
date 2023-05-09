@@ -276,3 +276,39 @@
     transform: rotate(0deg);
   }
 }
+
+
+/*Platify Buttons */
+.generatebtn {
+  width: 200px;
+  height: 45px;
+  background-color: #1DB954;
+  color: black;
+  border-radius: 17px;
+  border-color: transparent;
+  transition: 0.3s;
+  position: inherit;
+  margin-left: 25%;
+  margin-top: 150px;
+  
+}
+
+.generatebtn:hover {
+  border-color: #000000;
+}
+
+
+.addTagsbtn {
+  width: 100px;
+  height: 30px;
+  background-color: #1DB954;
+  color: black;
+  border-radius: 17px;
+  border-color: transparent;
+  transition: 0.3s;
+  margin-left: 15px;
+}
+
+.addTagsbtn:hover {
+  border-color: #000000;
+}

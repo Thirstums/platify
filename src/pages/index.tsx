@@ -5,7 +5,6 @@ import styles from '@/styles/Home.module.css'
 import { createPlaylistByMatchingSongs } from './api/spotify-service'
 import { getTrackList } from './api/openai-service'
 
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -64,17 +63,9 @@ const handleSubmit = async (event) => {
       </Head>
       <main className={styles.main}>
         <div className={styles.description}>
-        
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="UserInputforms">Playlist Tags</label>
-            <input type="text" id='UserInputforms' name='UserInputforms' />
-
-            <button type='submit'>Submit</button>
-          </form>
-          
-
-          <div>
+        <div>
           </div>
+          
           <div>
             <a
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -95,6 +86,25 @@ const handleSubmit = async (event) => {
         </div>
 
         <div className={styles.center}>
+          <div className={styles.description}>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="UserInputforms">Playlist Tags</label>
+            <input type="text" id='UserInputforms' name='UserInputforms' />
+
+            <button className={styles.addTagsbtn}> Add Tags</button>
+
+            <div>
+            <button className={styles.generatebtn} type='submit'>Generate Playlist</button>
+            </div>
+            
+          </form>
+          </div>
+          
+          
+
+          </div>
+
+        <div className={styles.center}>
           <Image
             
             src="/Platifylogo.png"
@@ -106,6 +116,28 @@ const handleSubmit = async (event) => {
         </div>
 
         <div className={styles.grid}>
+        <a
+            href="https://github.com/Thirstums/platify"
+            className={styles.card}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              Contact Us <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              help.platify@gmail.com
+            </p>
+
+            <Image
+            
+            src="/GithubLogo.png"
+            alt="GitHub Logo"
+            width={90}
+            height={35}
+            priority
+          />
+          </a>
           <a
             href="https://github.com/Thirstums/platify"
             className={styles.card}
@@ -128,7 +160,23 @@ const handleSubmit = async (event) => {
             priority
           />
           </a>
+          <a
+              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              By{' '}
+              <Image
+                src="/BlueberryTartLogo.png"
+                alt="Vercel Logo"
+                
+                width={50}
+                height={50}
+                priority
+              />
+            </a>
         </div>
+        
       </main>
     </>
   )
