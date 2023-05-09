@@ -1,10 +1,9 @@
 # Platify
 ----------------------------------------------------------------------------------------
 
-Platify is a Spotify Playlist Generator using AI for IOS and Android
+Platify is a Spotify Playlist Generator using AI for IOS and Android.
 
 ![Platify](/img/PlatifyLogo.png)
-
 
 ## AI Training Prompt
 I want you to act as a playlist creator for individuals who don't know any songs and would like a playlist based on the Year, Genre, Artist, a Specific Song or based on a sentence describing the playlist. I will provide you with input forms like "Year" "Music Genre" "Artist" "Song" or a sentence. 
@@ -18,12 +17,10 @@ Genre = "",
 Artist = "", 
 Song = ""
 
+
 # Playlist  showcase
 
-
 Coming soon
-
-
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
