@@ -2,16 +2,21 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import { createPlaylistByMatchingSongs } from './api/spotify-service'
-import { getTrackList } from './api/openai-service'
+import { createPlaylistByMatchingSongs } from './api/spotify'
+import { getTrackList } from './api/openai'
+import secureLocalStorage from 'react-secure-storage'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { logout, refreshAccessToken } from './api/auth/spotify-auth'
+import { addTracksToPlaylist, createPlaylist, searchTrack } from './api/spotify'
 
 const inter = Inter({ subsets: ['latin'] })
+const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
 
 export default function Home() {
 
-
 // Handles the submit event on form submit.
-const handleSubmit = async (event) => {
+const handleSubmit = async (event: any) => {
   // Stop the form from submitting and refreshing the page.
   event.preventDefault()
 
@@ -52,6 +57,45 @@ const handleSubmit = async (event) => {
   );
 
 }
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async (token: any) => {
+      refreshAccessToken(token);
+    }
+
+    const intervalId = setInterval(async () => {
+      const token: any = secureLocalStorage.getItem('token');
+      
+      if(token) {
+        // If the user is online for 55 minutes and the token is about to expire, refresh the token
+        console.log('Refreshing token... (1h in)');
+        fetchData(token);
+      } else {
+        // If the user somehow got logged out, redirect him to home page
+        router.push('/login');
+      }
+    }, TOKEN_REFRESH_INTERVAL);
+
+    return () => clearInterval(intervalId);
+  }, [router]);
+
+  function handleLogout() {
+    logout();
+    console.log('successfully logged out')
+    router.push('/login');
+  }
+
+  async function createTestPlaylist() {
+    const uri = await searchTrack('Shape of you');
+    const playlistId = await createPlaylist('Platify', 'your mum', false, false);
+
+    if (uri && playlistId) {
+      const tracks = [uri];
+      await addTracksToPlaylist(playlistId, tracks);
+    }
+  }
 
   return (
     <>
@@ -114,6 +158,10 @@ const handleSubmit = async (event) => {
             priority
           />
         </div>
+
+        <button onClick={createTestPlaylist}> Create Test Playlist </button>
+
+        <button onClick={handleLogout}> Logout </button>
 
         <div className={styles.grid}>
         <a
@@ -181,4 +229,3 @@ const handleSubmit = async (event) => {
     </>
   )
 }
-
