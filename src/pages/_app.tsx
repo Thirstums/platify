@@ -35,7 +35,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router]);
 
-  return <Component {...pageProps} />
+  return <Layout>
+        <Component {...pageProps} />
+        </Layout>
 }
 
 
