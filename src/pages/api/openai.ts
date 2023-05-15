@@ -7,6 +7,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+// Sends Request to OpenAi to get an array list of songs based on the Users inputs.
 export async function getTrackList(textInput: string) {
   try{
     const gptResponse = await openai.createCompletion({
@@ -29,9 +30,8 @@ export async function getTrackList(textInput: string) {
         presence_penalty: 0,
       })
     
-      //returns the first response from OpenAI (there is only one in this case)                                    //splits into array
+      //returns the first response from OpenAI (there is only one in this case) // whitespace replace // enter replace                           //splits into array
       const playlist: string[] = gptResponse.data.choices[0].text?.replace('\r', '').replace('\n', '').replace(/ +(?= )/g,'').replace(/\?.*/,'').split('\n')!;
-
 
       //console log for troubleshooting
       console.log(playlist);
