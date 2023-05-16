@@ -61,10 +61,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-
-
 # Capacitor
-Capacitor is used to convert your existing Next.js app (code) into a Mobile app
+[Capacitor](https://capacitorjs.com/) is used to convert your existing Next.js or react app (code) into a Mobile app
 
 ## Next.js Configuration (get it ready for Capacitor)
 
@@ -132,13 +130,19 @@ On MacOS systems you can work with [Xcode](https://developer.apple.com/xcode/) &
 
 ### info
 
-If you make any changes to your capacitor.config.ts File you need to sync it again.
+If you make any changes to your app you need to sync it again. You can do that with:
 ```
 npx cap sync
 ```
 
 
-# OpenAI
-```
-$ npm install openai
-```
+# OpenAI 
+
+## How does it work?
+
+
+To get started all you need is a basic prompt. The prompt essentially is how you "program" the model. A prompt can be all kinds of things. Usually you provide a few examples for the output you want or give Instructions to the language model
+
+For some prompt examples you can either look at the one we used in this application or have a look at this [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts) git repository
+
+In order to get it working outside of the well known **Chat GPT** You require Tokens and an API Key
