@@ -140,7 +140,6 @@ npx cap sync
 
 ## How does it work?
 
-
 To get started all you need is a basic prompt. The prompt essentially is how you "program" the model. A prompt can be all kinds of things. Usually you provide a few examples for the output you want or give Instructions to the language model
 
 For some prompt examples you can either look at the one we used in this application or have a look at this [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts) git repository
