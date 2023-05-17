@@ -11,19 +11,18 @@ const Navbar = () => {
       <main >
         <div className={styles.description}>
             <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              href="https://github.com/Thirstums/platify/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
               <Image
-                src="/BlueberryTartLogo.png"
+                src="/PlatifyLogo.png"
                 alt="Vercel Logo"
                 
                 width={50}
                 height={50}
                 priority
-              />
+              /> Platify
             </a>
           </div>
     </main>

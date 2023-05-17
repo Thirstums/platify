@@ -2,7 +2,7 @@ import {OpenAIApi} from 'openai/dist/api'
 import { Configuration } from "openai/dist/configuration";
 //
 const configuration = new Configuration({
-  apiKey: ""
+  apiKey: process.env.OPENAI_KEY
 });
 
 const openai = new OpenAIApi(configuration);

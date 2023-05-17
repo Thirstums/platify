@@ -1,0 +1,32 @@
+.pageContainer {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../img/dark_wallpaper.png");
+}
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.parent p{
+    font-family: var(--font-mono), "Berlin Sans FB", serif;
+    padding: 5px;
+}
+
+.padding{
+    padding-bottom: 25px !important;
+}
+
+.button button{
+ background-color: #1DB954;
+ height: 80px;
+ width: 250px;
+ border-radius: 150px;
+ color: black;
+ font-size: 30px;
+ font-weight: bold;
+}
