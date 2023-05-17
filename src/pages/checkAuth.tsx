@@ -1,9 +1,10 @@
+
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import secureLocalStorage  from  "react-secure-storage";
 import { refreshAccessToken } from './api/auth/spotify-auth';
 
-/*
+
 export default function checkAuth(WrappedComponent: any) {
   const HOC = (props: any) => {
     const router = useRouter();
@@ -29,4 +30,4 @@ export default function checkAuth(WrappedComponent: any) {
   };
 
   return HOC;
-}*/
+}
