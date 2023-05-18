@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/Home2.module.scss'
 import { createPlaylistByMatchingSongs } from './api/spotify'
 import { getTrackList } from './api/openai'
 import secureLocalStorage from 'react-secure-storage'
@@ -106,125 +106,78 @@ const handleSubmit = async (event: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-        <div>
-          </div>
+
+
+        {/*<div className={styles.center}>*/}
+        {/*  <div className={styles.description}>*/}
+            <form onSubmit={handleSubmit} className={styles.form}>
+
+              <label htmlFor="UserInputforms">A<br/>Playlist<br/>Generator</label>
+              <div className={styles.inputParent}>
+                <input type="text" placeholder={"Add a Tag. For example: \"90s music\""} id='UserInputforms' name='UserInputforms' />
+                <button className={styles.addTagsbtn}>Add Tags</button>
+              </div>
+              <div className={styles.generatebtn}>
+              <button  type='submit'>Generate Playlist</button>
+              </div>
+
+            </form>
+          {/*</div>*/}
           
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/BlueberryTartLogo.png"
-                alt="Vercel Logo"
-                
-                width={50}
-                height={50}
-                priority
-              />
-            </a>
-          </div>
+          
+
+          {/*</div>*/}
+        <div className={styles.actionMenu}>
+          <button onClick={createTestPlaylist}> Create Test Playlist </button>
+          <button onClick={handleLogout}> Logout </button>
         </div>
-
-        <div className={styles.center}>
-          <div className={styles.description}>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="UserInputforms">Playlist Tags</label>
-            <input type="text" id='UserInputforms' name='UserInputforms' />
-
-            <button className={styles.addTagsbtn}> Add Tags</button>
-
-            <div>
-            <button className={styles.generatebtn} type='submit'>Generate Playlist</button>
-            </div>
-            
-          </form>
-          </div>
-          
-          
-
-          </div>
-
-        <div className={styles.center}>
-          <Image
-            
-            src="/Platifylogo.png"
-            alt="Next.js Logo"
-            width={180}
-            height={180}
-            priority
-          />
-        </div>
-
-        <button onClick={createTestPlaylist}> Create Test Playlist </button>
-
-        <button onClick={handleLogout}> Logout </button>
-
-        <div className={styles.grid}>
+        {/*<div className={styles.grid}>*/}
         <a
             href="https://github.com/Thirstums/platify"
             className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className={inter.className}>
-              Contact Us <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              help.platify@gmail.com
-            </p>
+            {/*<h2 className={inter.className}>*/}
+            {/*  Contact Us <span>-&gt;</span>*/}
+            {/*</h2>*/}
+            {/*<p className={inter.className}>*/}
+            {/*  help.platify@gmail.com*/}
+            {/*</p>*/}
 
             <Image
-            
-            src="/GithubLogo.png"
-            alt="GitHub Logo"
-            width={90}
-            height={35}
-            priority
-          />
-          </a>
-          <a
-            href="https://github.com/Thirstums/platify"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Github <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Platify Official Github
-            </p>
 
-            <Image
-            
-            src="/GithubLogo.png"
+            src="/github-mark-white.png"
             alt="GitHub Logo"
-            width={90}
-            height={35}
-            priority
+            width={30}
+            height={30}
+            className={styles.githubImage}
           />
           </a>
-          <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/BlueberryTartLogo.png"
-                alt="Vercel Logo"
-                
-                width={50}
-                height={50}
-                priority
-              />
-            </a>
-        </div>
-        
+        {/*  <a*/}
+        {/*    href="https://github.com/Thirstums/platify"*/}
+        {/*    className={styles.card}*/}
+        {/*    target="_blank"*/}
+        {/*    rel="noopener noreferrer"*/}
+        {/*  >*/}
+        {/*    <h2 className={inter.className}>*/}
+        {/*      Github <span>-&gt;</span>*/}
+        {/*    </h2>*/}
+        {/*    <p className={inter.className}>*/}
+        {/*      Platify Official Github*/}
+        {/*    </p>*/}
+
+        {/*    <Image*/}
+
+        {/*    src="/GithubLogo.png"*/}
+        {/*    alt="GitHub Logo"*/}
+        {/*    width={90}*/}
+        {/*    height={35}*/}
+        {/*    priority*/}
+        {/*  />*/}
+        {/*  </a>*/}
+        {/*</div>*/}
+
       </main>
     </>
   )
