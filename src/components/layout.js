@@ -1,11 +1,14 @@
+import ClientOnly from "@/pages/clientOnly";
 import Footer from "./Footer";
-import Navbar from "./Navbar";
+import Nav from "./Nav";
 
 
 export default function Layout({ children }) {
   return (
     <>
-      <Navbar />
+      <ClientOnly>
+        <Nav />
+      </ClientOnly>
       <main>{children}</main>
       <Footer />
     </>

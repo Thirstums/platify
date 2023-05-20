@@ -2,9 +2,14 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/layout'
 import { useEffect } from 'react'
-import secureLocalStorage from 'react-secure-storage';
 import { useRouter } from 'next/router';
-import { refreshAccessToken } from './api/auth/spotify-auth';
+import { getToken, refreshAccessToken } from './api/auth/spotify-auth';
+import { createTheme, NextUIProvider } from '@nextui-org/react';
+
+// 2. Call `createTheme` and pass your custom values
+const theme = createTheme({
+  type: "dark" // it could be "light" or "dark"
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -14,10 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
       refreshAccessToken(token);
     }
 
-    const token: any = secureLocalStorage.getItem('token');
+    const token: any = getToken();
 
     if (token) {
-      console.log(token);
       if (router.pathname === '/login') {
         // If the user is already logged in and wants to access login page, redirect him to home page
         console.log('You are already logged in');
@@ -35,11 +39,11 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router]);
 
-  return <Layout>
-        <Component {...pageProps} />
-        </Layout>
+  return (
+    <NextUIProvider theme={theme}>
+      <Layout>
+          <Component {...pageProps} />
+      </Layout>
+    </NextUIProvider>
+  )
 }
-
-
-
-

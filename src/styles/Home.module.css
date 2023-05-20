@@ -4,7 +4,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  min-height: 100vh;
 }
 
 .description {
@@ -302,17 +301,11 @@
   border-color: #000000;
 }
 
-
-
 .addTagsbtn:hover {
   border-color: #000000;
 }
 
-
-
-
 /*Main Page */
-
 .tag{
   background-color: white;
   width: 30vh;

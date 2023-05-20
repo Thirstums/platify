@@ -1,22 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home2.module.scss'
-import { createPlaylistByMatchingSongs } from './api/spotify'
+import styles from '@/styles/Home.module.scss'
+import { createPlaylistByMatchingSongs, spotifyApi } from './api/spotify'
 import { getTrackList } from './api/openai'
-import secureLocalStorage from 'react-secure-storage'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { logout, refreshAccessToken } from './api/auth/spotify-auth'
-import { addTracksToPlaylist, createPlaylist, searchTrack } from './api/spotify'
+import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
 
 const inter = Inter({ subsets: ['latin'] })
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
 
 export default function Home() {
-
-// Handles the submit event on form submit.
-const handleSubmit = async (event: any) => {
+  // Handles the submit event on form submit.
+  const handleSubmit = async (event: any) => {
   // Stop the form from submitting and refreshing the page.
   event.preventDefault()
 
@@ -51,51 +48,41 @@ const handleSubmit = async (event: any) => {
   // If server returns the name submitted, that means the form works.
   const result = await response.json()
 
-  
+
   getTrackList(event.target.UserInputforms.value).then(res =>
     createPlaylistByMatchingSongs(res)
   );
-
-}
+  }
 
   const router = useRouter();
-
+  
   useEffect(() => {
+    const token: any = getToken();
+
+    if(token) {
+      spotifyApi.setAccessToken(token.accessToken);
+      spotifyApi.setRefreshToken(token.refreshToken);
+    }
+
     const fetchData = async (token: any) => {
       refreshAccessToken(token);
     }
 
     const intervalId = setInterval(async () => {
-      const token: any = secureLocalStorage.getItem('token');
+      const token: any = getToken();
       
       if(token) {
         // If the user is online for 55 minutes and the token is about to expire, refresh the token
         console.log('Refreshing token... (1h in)');
         fetchData(token);
       } else {
-        // If the user somehow got logged out, redirect him to home page
+        // If the user somehow got logged out, redirect him to login page
         router.push('/login');
       }
     }, TOKEN_REFRESH_INTERVAL);
 
     return () => clearInterval(intervalId);
   }, [router]);
-
-  function handleLogout() {
-    logout();
-    console.log('successfully logged out')
-    router.push('/login');
-  }
-
-  async function createTestPlaylist() {
-    const uri = await searchTrack('Shape of you');
-    const playlistId = await createPlaylist('Platify', 'your mum', false, false);
-
-    if (uri && playlistId) {
-      const tracks = [uri];
-      await addTracksToPlaylist(playlistId, tracks);
-    }
-  }
 
   return (
     <>
@@ -106,31 +93,20 @@ const handleSubmit = async (event: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-
-
         {/*<div className={styles.center}>*/}
         {/*  <div className={styles.description}>*/}
-            <form onSubmit={handleSubmit} className={styles.form}>
-
-              <label htmlFor="UserInputforms">A<br/>Playlist<br/>Generator</label>
-              <div className={styles.inputParent}>
-                <input type="text" placeholder={"Add a Tag. For example: \"90s music\""} id='UserInputforms' name='UserInputforms' />
-                <button className={styles.addTagsbtn}>Add Tags</button>
-              </div>
-              <div className={styles.generatebtn}>
-              <button  type='submit'>Generate Playlist</button>
-              </div>
-
-            </form>
-          {/*</div>*/}
-          
-          
-
-          {/*</div>*/}
-        <div className={styles.actionMenu}>
-          <button onClick={createTestPlaylist}> Create Test Playlist </button>
-          <button onClick={handleLogout}> Logout </button>
-        </div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <label htmlFor="UserInputforms">A<br/>Playlist<br/>Generator</label>
+          <div className={styles.inputParent}>
+            <input type="text" placeholder={"Add a Tag. For example: \"90s music\""} id='UserInputforms' name='UserInputforms' />
+            <button className={styles.addTagsbtn}>Add Tags</button>
+          </div>
+          <div className={styles.generatebtn}>
+          <button  type='submit'>Generate Playlist</button>
+          </div>
+        </form>
+        {/*</div>*/}
+        {/*</div>*/}
         {/*<div className={styles.grid}>*/}
         <a
             href="https://github.com/Thirstums/platify"
@@ -153,7 +129,7 @@ const handleSubmit = async (event: any) => {
             height={30}
             className={styles.githubImage}
           />
-          </a>
+        </a>
         {/*  <a*/}
         {/*    href="https://github.com/Thirstums/platify"*/}
         {/*    className={styles.card}*/}
@@ -177,7 +153,6 @@ const handleSubmit = async (event: any) => {
         {/*  />*/}
         {/*  </a>*/}
         {/*</div>*/}
-
       </main>
     </>
   )

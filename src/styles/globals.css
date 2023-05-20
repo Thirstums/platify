@@ -100,8 +100,33 @@ a {
   text-decoration: none;
 }
 
+button {
+  background-color: #1DB954;
+  color: black;
+}
+
+.nextui-c-ijHtNE-iLkgoV-css[aria-haspopup="true"].nextui-c-ijHtNE-iLkgoV-css[aria-expanded="true"] {
+  opacity: 1 !important;
+  transform: translateZ(0px) scale(1);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+.nextui-c-ltVxD {
+  margin-right: 10px !important;
+}
+
+.nextui-c-egxOLa {
+  max-width: 100% !important;
+}
+
+@media (min-width: 650px) {
+  .nextui-c-jklhtj-ikcISyq-css {
+    width: 100%;
+    justify-content: flex-end;
   }
 }

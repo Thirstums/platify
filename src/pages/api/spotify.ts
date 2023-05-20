@@ -73,3 +73,17 @@ export async function createPlaylistByMatchingSongs(tracks: any){
 
     return tracks;
 }
+
+export async function getCurrentUser() {
+    let currentUser: any;
+
+    await spotifyApi.getMe().then(
+        function(data) {
+            currentUser = data.body;
+        },
+        function(err) {
+            console.error(err);
+        }
+    )
+    return currentUser;
+}

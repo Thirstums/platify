@@ -15,7 +15,7 @@ export async function getAuthorizationUrl() {
         code_challenge_method: 'S256',
         code_challenge: codeChallenge,
         state,
-        scope: 'playlist-modify-public playlist-read-private playlist-modify-private',
+        scope: 'playlist-modify-public playlist-read-private playlist-modify-private user-read-email user-read-private',
     });
 
     const authorizationUrl = `https://accounts.spotify.com/authorize?${queryParams}`;
@@ -113,3 +113,7 @@ export function logout() {
     spotifyApi.resetRefreshToken();
     secureLocalStorage.clear();
 };
+
+export function getToken() {
+    return secureLocalStorage.getItem('token');
+}
