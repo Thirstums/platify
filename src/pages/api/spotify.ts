@@ -1,4 +1,3 @@
-import secureLocalStorage from 'react-secure-storage';
 import SpotifyWebApi from 'spotify-web-api-node'
 
 export const spotifyApi = new SpotifyWebApi({
@@ -80,6 +79,7 @@ export async function getUserInformation(){
     const url = 'https://api.spotify.com/v1/me';
     const response = await fetch(url, {
         headers: {
+            // call accessToken from localstorage instead of "accessToken"
             'Authorization': 'Bearer accessToken',
         },
     });
