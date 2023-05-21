@@ -74,6 +74,20 @@ export async function createPlaylistByMatchingSongs(tracks: any){
     return tracks;
 }
 
+// interesting for future usage
+/*
+export async function getUserInformation(){
+    const url = 'https://api.spotify.com/v1/me';
+    const response = await fetch(url, {
+        headers: {
+            // call accessToken from localstorage instead of "accessToken"
+            'Authorization': 'Bearer accessToken',
+        },
+    });
+    const data = await response.json();
+    return data;
+}*/
+
 export async function getCurrentUser() {
     let currentUser: any;
 

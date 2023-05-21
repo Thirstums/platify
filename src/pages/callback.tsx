@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { exchangeCodeForToken } from '@/pages/api/auth/spotify-auth'
+import { Loading } from '@nextui-org/react'
 
 export default function Callback() {
   const router = useRouter();
@@ -17,5 +18,9 @@ export default function Callback() {
     fetchToken();
   }, [router]);
 
-  return <div>Logging you in...</div>;
+  return (
+    <Loading className="spinner" color="success" textColor="success">
+      Logging you in...
+    </Loading>
+  );
 };
