@@ -1,0 +1,48 @@
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+}
+  
+.nav a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+}
+
+.profileNav a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 1rem;
+    position: fixed;
+    width: 100px;
+    background-color: transparent;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+}
+
+.logoutBtn {
+    width: 10vh;
+    height: 6vh;
+    background-color: rgb(49, 45, 45);
+    color: white;
+    border-radius: 17px;
+    border-color: transparent;
+    transition: 0.3s;
+    margin-left: 15px;
+}

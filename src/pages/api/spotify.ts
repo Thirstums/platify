@@ -75,6 +75,7 @@ export async function createPlaylistByMatchingSongs(tracks: any){
 }
 
 // interesting for future usage
+/*
 export async function getUserInformation(){
     const url = 'https://api.spotify.com/v1/me';
     const response = await fetch(url, {
@@ -85,4 +86,18 @@ export async function getUserInformation(){
     });
     const data = await response.json();
     return data;
+}*/
+
+export async function getCurrentUser() {
+    let currentUser: any;
+
+    await spotifyApi.getMe().then(
+        function(data) {
+            currentUser = data.body;
+        },
+        function(err) {
+            console.error(err);
+        }
+    )
+    return currentUser;
 }
