@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
@@ -47,11 +47,13 @@
 }
 
 .card {
-  padding: 1rem 1.2rem;
-  border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
+  //padding: 1rem 1.2rem;
+  //border-radius: var(--border-radius);
+  //background: rgba(var(--card-rgb), 0);
+  //border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
+  position: absolute;
+  bottom: 0;
 }
 
 .card span {
@@ -144,9 +146,9 @@
   padding: 1px;
   border-radius: var(--border-radius);
   background: linear-gradient(
-    to bottom right,
-    rgba(var(--tile-start-rgb), 1),
-    rgba(var(--tile-end-rgb), 1)
+                  to bottom right,
+                  rgba(var(--tile-start-rgb), 1),
+                  rgba(var(--tile-end-rgb), 1)
   );
   background-clip: content-box;
 }
@@ -232,9 +234,9 @@
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
     background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
+                    to bottom,
+                    rgba(var(--background-start-rgb), 1),
+                    rgba(var(--callout-rgb), 0.5)
     );
     background-clip: padding-box;
     backdrop-filter: blur(24px);
@@ -247,9 +249,9 @@
     padding: 2rem;
     height: 200px;
     background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
+                    to bottom,
+                    transparent 0%,
+                    rgb(var(--background-end-rgb)) 40%
     );
     z-index: 1;
   }
@@ -284,28 +286,63 @@
 
 
 /*Platify Buttons */
-.generatebtn {
-  width: 200px;
-  height: 45px;
-  background-color: #1DB954;
-  color: black;
-  border-radius: 17px;
-  border-color: transparent;
-  transition: 0.3s;
-  position: inherit;
-  margin-left: 25%;
+.generatebtn
+{
   margin-top: 150px;
-  
+  display: flex;
+  justify-content: center;
+  button {
+    width: 30vh;
+    height: 6vh;
+    background-color: #1DB954;
+    color: black;
+    border-radius: 17px;
+    border-color: transparent;
+    transition: 0.3s;
+
+  }
 }
 
-.generatebtn:hover {
+.generatebtn button:hover {
   border-color: #000000;
 }
 
 
-.addTagsbtn {
-  width: 100px;
-  height: 30px;
+
+.addTagsbtn:hover {
+  border-color: #000000;
+}
+
+
+
+
+/*Main Page */
+
+
+.form .inputParent{
+  display: flex;
+  height: 100%;
+}
+.form label{
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  text-align-last: center;
+  padding-bottom: 20px;
+}
+
+.form input{
+  background-color: white;
+  width: 30vh;
+  height: 6vh;
+  border-radius: 17px;
+  color: black;
+  padding-left: 20px;
+}
+
+.form .addTagsbtn {
+  width: 10vh;
+  height: 6vh;
   background-color: #1DB954;
   color: black;
   border-radius: 17px;
@@ -314,6 +351,19 @@
   margin-left: 15px;
 }
 
-.addTagsbtn:hover {
-  border-color: #000000;
+.actionMenu{
+
+  position: absolute;
+  bottom: 90px;
+  //left: 0;
+
+  button{
+    width: 15vh;
+    height: 3vh;
+    background-color: #1DB954;
+    color: black;
+    border-radius: 7px;
+    //padding-left: 15px;
+
+  }
 }
