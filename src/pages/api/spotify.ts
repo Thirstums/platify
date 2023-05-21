@@ -1,3 +1,4 @@
+import secureLocalStorage from 'react-secure-storage';
 import SpotifyWebApi from 'spotify-web-api-node'
 
 export const spotifyApi = new SpotifyWebApi({
@@ -72,4 +73,16 @@ export async function createPlaylistByMatchingSongs(tracks: any){
     addTracksToPlaylist(res, matchedSongs));
 
     return tracks;
+}
+
+// interesting for future usage
+export async function getUserInformation(){
+    const url = 'https://api.spotify.com/v1/me';
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': 'Bearer accessToken',
+        },
+    });
+    const data = await response.json();
+    return data;
 }
