@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home2.module.scss'
+import styles from '@/styles/Home.module.scss'
 import { createPlaylistByMatchingSongs } from './api/spotify'
 import { getTrackList } from './api/openai'
 import secureLocalStorage from 'react-secure-storage'

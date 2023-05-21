@@ -1,5 +1,5 @@
 import { getAuthorizationUrl } from '@/pages/api/auth/spotify-auth'
-import styles from '../styles/Login.module.css'
+import styles from '../styles/Login.module.scss'
 export default function Login() {
   const handleLogin = async () => {
     const authorizationUrl = await getAuthorizationUrl();
