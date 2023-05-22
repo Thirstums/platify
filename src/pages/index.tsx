@@ -106,13 +106,13 @@ export default function Home() {
           </div>
         </form>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.form}>
             <label htmlFor="UserInputforms">Playlist Tags</label>
             <input type="text" id='UserInputforms' name='UserInputforms' />
 
             <button type='submit'>Generate Playlist</button>
           </form>
-          
+
         {/*</div>*/}
         {/*</div>*/}
         {/*<div className={styles.grid}>*/}
