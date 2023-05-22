@@ -105,6 +105,14 @@ export default function Home() {
           <button  type='submit'>Generate Playlist</button>
           </div>
         </form>
+
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="UserInputforms">Playlist Tags</label>
+            <input type="text" id='UserInputforms' name='UserInputforms' />
+
+            <button type='submit'>Generate Playlist</button>
+          </form>
+          
         {/*</div>*/}
         {/*</div>*/}
         {/*<div className={styles.grid}>*/}
