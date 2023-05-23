@@ -98,13 +98,14 @@ export default function Home() {
         <form onSubmit={handleSubmit} className={styles.form}>
           <label htmlFor="UserInputforms">A<br/>Playlist<br/>Generator</label>
           <div className={styles.inputParent}>
-            <input type="text" placeholder={"Add a Tag. For example: \"90s music\""} id='UserInputforms' name='UserInputforms' />
-            <button type="button" className={styles.addTagsbtn}>Add Tags</button>
-          </div>
+            <input type="text" id='UserInputforms' name='UserInputforms' placeholder={"Add a Tag. For example: \"90s music\"" }/>
+            <button type = 'button' className={styles.addTagsbtn}>Add Tags</button>
+          </div>          
           <div className={styles.generatebtn}>
           <button  type='submit'>Generate Playlist</button>
           </div>
         </form>
+
         {/*</div>*/}
         {/*</div>*/}
         {/*<div className={styles.grid}>*/}
