@@ -1,11 +1,13 @@
 import {OpenAIApi} from 'openai/dist/api'
 import { Configuration } from "openai/dist/configuration";
 //
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_KEY
-});
 
+const configuration = new Configuration({
+   organization: process.env.OPENAI_ORG,
+    apiKey: process.env.OPENAI_KEY,
+});
 const openai = new OpenAIApi(configuration);
+
 
 // Sends Request to OpenAi to get an array list of songs based on the Users inputs.
 export async function getTrackList(textInput: string) {
