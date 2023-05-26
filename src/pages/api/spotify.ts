@@ -68,7 +68,7 @@ export async function createPlaylistByMatchingSongs(tracks: any){
         matchedSongs.push(await searchTrack(tracks[i]));
         }
 
-    createPlaylist("GAY", "This playlist was created with Platify", false, true).then(res => 
+    createPlaylist("Platify", "This playlist was created with Platify", false, true).then(res => 
     addTracksToPlaylist(res, matchedSongs));
 
     return tracks;
