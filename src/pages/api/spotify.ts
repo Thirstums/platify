@@ -42,15 +42,14 @@ export async function createPlaylist(title: string, description: string, collabo
 // searches spotify track and returns uri:
 export async function searchTrack(query: string) {
     let uri: any;
-    
-    await spotifyApi.searchTracks(query, { limit: 5}).then(
+    try{
+    await spotifyApi.searchTracks(query, { limit: 1 }).then(
         function(data) {
             uri = data.body.tracks?.items[0].uri;
-        },
-        function(err) {
-            console.error(err);
-        }
-    );
+        })
+    } catch(SpotifyWebAPIException){
+        console.log("Couldn't add song");
+    }
     return uri;
 }
 
