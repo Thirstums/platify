@@ -14,7 +14,7 @@ const requestOptions = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + String('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')
+    'Authorization': 'Bearer ' + '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'
   },
   body: JSON.stringify({
     'prompt': `I want you to act as a playlist creator for individuals who don't know any songs 
