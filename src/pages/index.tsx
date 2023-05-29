@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
 import LoadingPrompt from '../pages/loadingPrompt'
+import ReactDOM from 'react-dom'
 
 const inter = Inter({ subsets: ['latin'] })
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
@@ -181,4 +182,6 @@ export default function Home() {
     </>
   )
 }
+ReactDOM.render(<Platify />, document.getElementById("root"));
+
 }
