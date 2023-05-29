@@ -55,11 +55,11 @@ export async function searchTrack(query: string) {
 
 // adds tracks to a playlist:
 export async function addTracksToPlaylist(id: string, tracks: string[]) {
-    await spotifyApi.addTracksToPlaylist(id, tracks).then(
-        function(err) {
-            console.error(err);
-        }
-    );
+    try{
+    await spotifyApi.addTracksToPlaylist(id, tracks);
+    } catch(SpotifyWebAPIException){
+        console.log("Couldn't add song");
+    }
 }
 
 export async function createPlaylistByMatchingSongs(tracks: any){
@@ -70,7 +70,7 @@ export async function createPlaylistByMatchingSongs(tracks: any){
     matchedSongs.filter(elements => {
         (elements != null && elements !== undefined && elements !== "");
     });
-    
+
     createPlaylist("Platify", "This playlist was created with Platify", false, true).then(res => 
     addTracksToPlaylist(res, matchedSongs));
 
