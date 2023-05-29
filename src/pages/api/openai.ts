@@ -15,7 +15,7 @@ const requestOptions = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + String(configuration.apiKey)
+    'Authorization': 'Bearer ' + String(process.env.OPENAI_KEY)
   },
   body: JSON.stringify({
     'prompt': `I want you to act as a playlist creator for individuals who don't know any songs 
@@ -36,7 +36,7 @@ const requestOptions = {
     presence_penalty: 0,
   })
 };
-fetch('https://api.openai.com/v1/engines/code-davinci-001/completions', requestOptions)
+fetch('https://api.openai.com/v1/engines/code-davinci-003/completions', requestOptions)
     .then(response => response.json())
     .then(data => {
     //returns the first response from OpenAI (there is only one in this case) // whitespace replace // enter replace                   //splits into array

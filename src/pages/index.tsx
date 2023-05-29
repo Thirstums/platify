@@ -102,7 +102,7 @@ export default function Home() {
             <button type = 'button' className={styles.addTagsbtn}>Add Tags</button>
           </div>          
           <div className={styles.generatebtn}>
-          <button  type='submit'>Generate Playlist</button>
+          <button type='submit'>Generate Playlist</button>
           </div>
         </form>
 
