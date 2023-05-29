@@ -7,7 +7,7 @@ import { getTrackList } from './api/openai'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
-import LoadingPrompt from './loadingPrompt'
+import LoadingPrompt from '../pages/loadingPrompt'
 
 const inter = Inter({ subsets: ['latin'] })
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
