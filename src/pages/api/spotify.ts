@@ -66,7 +66,11 @@ export async function createPlaylistByMatchingSongs(tracks: any){
     for (let i = 0; i < tracks.length; i++) {
         matchedSongs.push(await searchTrack(tracks[i]));
         }
-
+    
+    matchedSongs.filter(elements => {
+        (elements != null && elements !== undefined && elements !== "");
+    });
+    
     createPlaylist("Platify", "This playlist was created with Platify", false, true).then(res => 
     addTracksToPlaylist(res, matchedSongs));
 
