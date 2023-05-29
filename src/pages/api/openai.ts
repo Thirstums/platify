@@ -15,7 +15,7 @@ const requestOptions = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + String(openai)
+    'Authorization': 'Bearer ' + String(process.env.OPENAI_KEY)
   },
   body: JSON.stringify({
     'prompt': `I want you to act as a playlist creator for individuals who don't know any songs 
