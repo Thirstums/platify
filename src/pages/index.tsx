@@ -1,36 +1,36 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.scss'
-import { createPlaylistByMatchingSongs, spotifyApi } from './api/spotify'
-import { getTrackList } from './api/openai'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
-import React from "react"; 
-import { TagsInput } from "react-tag-input-component"; 
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from '@/styles/Home.module.scss';
+import { createPlaylistByMatchingSongs, spotifyApi } from './api/spotify';
+import { getTrackList } from './api/openai';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { getToken, refreshAccessToken } from './api/auth/spotify-auth';
+import React from 'react';
+import { TagsInput } from 'react-tag-input-component';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
 
 export default function Home() {
-  const [selected, setSelected] = useState<string[]>(["gfg"]); // State for selected tags
+  const [selected, setSelected] = useState<string[]>([]); // State for selected tags
 
   // Handles the submit event on form submit.
   const handleSubmit = async (event: any) => {
     // Stop the form from submitting and refreshing the page.
-    event.preventDefault()
+    event.preventDefault();
 
     // Get data from the form.
     const data = {
-      UserInputforms: event.target.UserInputforms.value
-    }
+      UserInputforms: event.target.UserInputforms.value,
+    };
 
     // Send the data to the server in JSON format.
-    const JSONdata = JSON.stringify(data)
+    const JSONdata = JSON.stringify(data);
 
     // API endpoint where we send form data.
-    const endpoint = '/api/form'
+    const endpoint = '/api/form';
 
     // Form the request for sending data to the server.
     const options = {
@@ -42,38 +42,50 @@ export default function Home() {
       },
       // Body of the request is the JSON data we created above.
       body: JSONdata,
-    }
+    };
 
     // Send the form data to our forms API on Vercel and get a response.
-    const response = await fetch(endpoint, options)
+    const response = await fetch(endpoint, options);
 
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
-    const result = await response.json()
+    const result = await response.json();
 
-    getTrackList(event.target.UserInputforms.value).then(res =>
+    getTrackList(event.target.UserInputforms.value).then((res) =>
       createPlaylistByMatchingSongs(res)
     );
-  }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      const value = (event.target as HTMLInputElement).value.trim();
+
+      if (value !== '') {
+        setSelected((prevSelected) => [...prevSelected, value]);
+        (event.target as HTMLInputElement).value = '';
+      }
+    }
+  };
 
   const router = useRouter();
-  
+
   useEffect(() => {
     const token: any = getToken();
 
-    if(token) {
+    if (token) {
       spotifyApi.setAccessToken(token.accessToken);
       spotifyApi.setRefreshToken(token.refreshToken);
     }
 
     const fetchData = async (token: any) => {
       refreshAccessToken(token);
-    }
+    };
 
     const intervalId = setInterval(async () => {
       const token: any = getToken();
-      
-      if(token) {
+
+      if (token) {
         // If the user is online for 55 minutes and the token is about to expire, refresh the token
         console.log('Refreshing token... (1h in)');
         fetchData(token);
@@ -96,11 +108,23 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <label htmlFor="UserInputforms">A<br/>Playlist<br/>Generator</label>
+          <label htmlFor="UserInputforms">
+            A
+            <br />
+            Playlist
+            <br />
+            Generator
+          </label>
           <div className={styles.inputParent}>
-            <TagInput selected={selected} setSelected={setSelected} /> {/* Render the TagInput component */}
-            <button type="button" className={styles.addTagsbtn}>Add Tags</button>
-          </div>          
+            <input
+              type="text"
+              placeholder="Add a Tag. For example: '90s music'"
+              onKeyDown={handleKeyDown}
+            />
+            <button type="button" className={styles.addTagsbtn}>
+              Add Tags
+            </button>
+          </div>
           <div className={styles.generatebtn}>
             <button type="submit">Generate Playlist</button>
           </div>
@@ -121,20 +145,6 @@ export default function Home() {
           />
         </a>
       </main>
-    </>
-  );
-}
-
-function TagInput({ selected, setSelected }: { selected: string[], setSelected: React.Dispatch<React.SetStateAction<string[]>> }) {
-  return (
-    <>
-      <pre>{JSON.stringify(selected)}</pre>
-      <TagsInput
-        value={selected}
-        onChange={setSelected}
-        placeHolder="Add a Tag. For example: '90s music'"
-        name='UserInputforms'
-      />
     </>
   );
 }
