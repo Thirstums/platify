@@ -24,9 +24,6 @@ export default function Home() {
     UserInputforms: event.target.UserInputforms.value
     
   }
-  const LoadingPrompt: React.FC = () => {
-    return <div>Loading...</div>;
-  };
   
   // Send the data to the server in JSON format.
   const JSONdata = JSON.stringify(data)
@@ -59,6 +56,8 @@ export default function Home() {
   );
   }
 
+ 
+
   const router = useRouter();
   
   useEffect(() => {
@@ -89,11 +88,17 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, [router]);
 
+  
+  const LoadingPrompt: React.FC = () => {
+    return <div>Loading...</div>;
+  };
   const Platify: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
   
     const handleButtonClick = () => {
       setIsLoading(true);
+
+     
   
       // Simulating an asynchronous task
       setTimeout(() => {
@@ -181,7 +186,8 @@ export default function Home() {
       </main>
     </>
   )
+  ReactDOM.render(<Platify/>, document.getElementById("root"));
 }
-ReactDOM.render(<Platify />, document.getElementById("root"));
+
 
 }
