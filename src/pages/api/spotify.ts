@@ -1,4 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node'
+import React, { useState, useEffect } from "react";
+
 
 export const spotifyApi = new SpotifyWebApi({
     clientId: process.env.SPOTIFY_CLIENT_ID,

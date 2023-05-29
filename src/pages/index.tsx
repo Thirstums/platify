@@ -5,8 +5,9 @@ import styles from '@/styles/Home.module.scss'
 import { createPlaylistByMatchingSongs, spotifyApi } from './api/spotify'
 import { getTrackList } from './api/openai'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
+import LoadingPrompt from './loadingPrompt'
 
 const inter = Inter({ subsets: ['latin'] })
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
@@ -22,7 +23,10 @@ export default function Home() {
     UserInputforms: event.target.UserInputforms.value
     
   }
-
+  const LoadingPrompt: React.FC = () => {
+    return <div>Loading...</div>;
+  };
+  
   // Send the data to the server in JSON format.
   const JSONdata = JSON.stringify(data)
 
@@ -84,6 +88,19 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, [router]);
 
+  const Platify: React.FC = () => {
+    const [isLoading, setIsLoading] = useState(false);
+  
+    const handleButtonClick = () => {
+      setIsLoading(true);
+  
+      // Simulating an asynchronous task
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000); // Set your desired loading time here
+      router.push('/playlistview');
+    };
+
   return (
     <>
       <Head>
@@ -102,7 +119,13 @@ export default function Home() {
             <button type = 'button' className={styles.addTagsbtn}>Add Tags</button>
           </div>          
           <div className={styles.generatebtn}>
-          <button type='submit'>Generate Playlist</button>
+          <div>
+      {isLoading ? (
+        <LoadingPrompt />
+      ) : (
+        <button onClick={handleButtonClick}>Start Loading</button>
+      )}
+    </div>
           </div>
         </form>
 
@@ -157,4 +180,5 @@ export default function Home() {
       </main>
     </>
   )
+}
 }
