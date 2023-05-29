@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 export const spotifyApi = new SpotifyWebApi({
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    redirectUri: process.env.SPOTIFY_REDIRECT_URI_PREVIEW
+    redirectUri: process.env.SPOTIFY_REDIRECT_URI
 });
 
 const matchedSongs: string[] = [];
