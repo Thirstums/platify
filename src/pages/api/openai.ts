@@ -35,7 +35,7 @@ const requestOptions = {
     presence_penalty: 0,
   })
 };
-fetch('https://api.openai.com/v1/engines/code-davinci-003/completions', requestOptions)
+fetch('https://api.openai.com/v1/engines/code-davinci-001/completions', requestOptions)
     .then(response => response.json())
     .then(data => {
     //returns the first response from OpenAI (there is only one in this case) // whitespace replace // enter replace                   //splits into array
