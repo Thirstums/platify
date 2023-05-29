@@ -2,9 +2,6 @@ import { useRouter } from "next/router";
 import { getTrackList } from "./api/openai";
 
 
-
-
-
 export function loadingScreen() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = useRouter();
