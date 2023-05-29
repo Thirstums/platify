@@ -1,6 +1,5 @@
 import {OpenAIApi} from 'openai/dist/api'
 import { Configuration } from "openai/dist/configuration";
-//
 
 const configuration = new Configuration({
   
@@ -15,7 +14,7 @@ const requestOptions = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + String(process.env.OPENAI_KEY)
+    'Authorization': 'Bearer ' + String(configuration.accessToken)
   },
   body: JSON.stringify({
     'prompt': `I want you to act as a playlist creator for individuals who don't know any songs 
