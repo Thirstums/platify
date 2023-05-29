@@ -1,16 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.scss'
-import { createPlaylistByMatchingSongs, spotifyApi } from './api/spotify'
-import { getTrackList } from './api/openai'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.scss";
+import { createPlaylistByMatchingSongs, spotifyApi } from "./api/spotify";
+import { getTrackList } from "./api/openai";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { getToken, refreshAccessToken } from "./api/auth/spotify-auth";
 
 export default function PlaylistView() {
-
-return (
+  return (
     <>
       <Head>
         <title>Platify</title>
@@ -20,9 +19,12 @@ return (
       </Head>
       <main className={styles.main}>
         <div>
-            <a><link href="/playlistview" />viewmage</a>
+          <a>
+            <link href="/playlistview" />
+            viewmage
+          </a>
         </div>
-    </main>
+      </main>
     </>
-  )
+  );
 }

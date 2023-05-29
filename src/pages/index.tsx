@@ -24,6 +24,7 @@ export default function Home() {
     UserInputforms: event.target.UserInputforms.value
     
   }
+ 
   
   // Send the data to the server in JSON format.
   const JSONdata = JSON.stringify(data)
@@ -56,8 +57,6 @@ export default function Home() {
   );
   }
 
- 
-
   const router = useRouter();
   
   useEffect(() => {
@@ -88,7 +87,8 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, [router]);
 
-  
+
+/*
   const LoadingPrompt: React.FC = () => {
     return <div>Loading...</div>;
   };
@@ -97,8 +97,6 @@ export default function Home() {
   
     const handleButtonClick = () => {
       setIsLoading(true);
-
-     
   
       // Simulating an asynchronous task
       setTimeout(() => {
@@ -106,7 +104,7 @@ export default function Home() {
       }, 2000); // Set your desired loading time here
       router.push('/playlistview');
     };
-
+*/
   return (
     <>
       <Head>
@@ -126,11 +124,13 @@ export default function Home() {
           </div>          
           <div className={styles.generatebtn}>
           <div>
+            {/* 
       {isLoading ? (
         <LoadingPrompt />
       ) : (
         <button onClick={handleButtonClick}>Start Loading</button>
       )}
+      */}
     </div>
           </div>
         </form>
@@ -186,7 +186,7 @@ export default function Home() {
       </main>
     </>
   )
-  ReactDOM.render(<Platify/>, document.getElementById("root"));
+  ReactDOM.render(<Platify />, document.getElementById("root"));
 }
 
 
