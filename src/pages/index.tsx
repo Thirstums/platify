@@ -5,13 +5,22 @@ import styles from '@/styles/Home.module.scss'
 import { createPlaylistByMatchingSongs, spotifyApi } from './api/spotify'
 import { getTrackList } from './api/openai'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getToken, refreshAccessToken } from './api/auth/spotify-auth'
+import loadingScreen from './loadingscreen';
 
 const inter = Inter({ subsets: ['latin'] })
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
 
+
+
+
 export default function Home() {
+
+  const [isLoading, setIsLoading]= useState(false);
+  const [openAIResponse, setOpenAIResponse] = useState(null);
+
+
   // Handles the submit event on form submit.
   const handleSubmit = async (event: any) => {
   // Stop the form from submitting and refreshing the page.
@@ -20,7 +29,6 @@ export default function Home() {
   // Get data from the form.
   const data = {
     UserInputforms: event.target.UserInputforms.value
-    
   }
 
   // Send the data to the server in JSON format.
@@ -40,7 +48,7 @@ export default function Home() {
     // Body of the request is the JSON data we created above.
     body: JSONdata,
   }
-
+    setIsLoading(true);
   // Send the form data to our forms API on Vercel and get a response.
   const response = await fetch(endpoint, options)
 
@@ -48,6 +56,13 @@ export default function Home() {
   // If server returns the name submitted, that means the form works.
   const result = await response.json()
 
+  setOpenAIResponse(result);
+  setIsLoading(false);
+  
+  router.push({
+    pathname: 'loadingscreen',
+  });
+  
 
   getTrackList(event.target.UserInputforms.value).then(res =>
     createPlaylistByMatchingSongs(res)
