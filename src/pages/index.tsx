@@ -130,13 +130,13 @@ return (
       {/* ... */}
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* ... */}
-        <div className={styles.inputParent}>
-          {tags.map((tag, index) => (
-            <div className={styles.tag} key={index}>
-              
-              {tag}
-              <button onClick={() => deleteTag(index)}>x</button>
-
+        {tags.map((tag, index) => (
+  <div className="tag">
+    {tag}
+    <button onClick={() => deleteTag(index)}>x</button>
+  </div>
+))}
+  <div className={styles.inputParent}>
           <input
             type="text"
             id="UserInputforms"
@@ -147,8 +147,7 @@ return (
             onChange={onChange}
             onKeyUp={onKeyUp}
           />
-                    </div>
-          ))}
+  
           <button type="button" className={styles.addTagsbtn}>
             Add Tags
           </button>
