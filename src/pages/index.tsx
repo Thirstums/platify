@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getToken, refreshAccessToken } from './api/auth/spotify-auth';
 import React from 'react';
-import { TagsInput } from 'react-tag-input-component';
+import { TagsInput, TagsInputProps } from 'react-tag-input-component';
 
 const inter = Inter({ subsets: ['latin'] });
 const TOKEN_REFRESH_INTERVAL = 55 * 60 * 1000; // refresh the token every 55 minutes
@@ -51,21 +51,9 @@ export default function Home() {
     // If server returns the name submitted, that means the form works.
     const result = await response.json();
 
-    getTrackList(event.target.UserInputforms.value).then((res) =>
+    getTrackList(event.target.UserInputforms.value).then(res =>
       createPlaylistByMatchingSongs(res)
     );
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === ' ' || event.key === 'Enter') {
-      event.preventDefault();
-      const value = (event.target as HTMLInputElement).value.trim();
-
-      if (value !== '') {
-        setSelected((prevSelected) => [...prevSelected, value]);
-        (event.target as HTMLInputElement).value = '';
-      }
-    }
   };
 
   const router = useRouter();
@@ -116,14 +104,11 @@ export default function Home() {
             Generator
           </label>
           <div className={styles.inputParent}>
-            <input
-              type="text"
-              placeholder="Add a Tag. For example: '90s music'"
-              onKeyDown={handleKeyDown}
+            <TagsInput
+              value={selected}
+              onChange={setSelected}
+              placeHolder="Add a Tag. For example: '90s music'"
             />
-            <button type="button" className={styles.addTagsbtn}>
-              Add Tags
-            </button>
           </div>
           <div className={styles.generatebtn}>
             <button type="submit">Generate Playlist</button>
