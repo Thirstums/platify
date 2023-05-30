@@ -31,12 +31,7 @@ export async function getTrackList(textInput: string) {
     });
 
     //returns the first response from OpenAI (there is only one in this case) // whitespace replace // enter replace                           //splits into array
-    const playlist: string[] = gptResponse.data.choices[0].text
-      ?.replace("\r", "")
-      .replace("\n", "")
-      .replace(/ +(?= )/g, "")
-      .replace(/\?.*/, "")
-      .split("\n")!;
+    const playlist: string[] = gptResponse.data.choices[0].text?.replace('\r', '').replace('\n', '').replace(/ +(?= )/g,'').replace(/\?.*/,'').split('\n')!;
 
     //console log for troubleshooting
     console.log(playlist);
