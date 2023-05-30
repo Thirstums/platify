@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { exchangeCodeForToken } from '@/pages/api/auth/spotify-auth'
-import { Loading } from '@nextui-org/react'
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { exchangeCodeForToken } from "@/pages/api/auth/spotify-auth";
+import { Loading } from "@nextui-org/react";
 
 export default function Callback() {
   const router = useRouter();
@@ -9,10 +9,10 @@ export default function Callback() {
   useEffect(() => {
     const fetchToken = async () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      const state = urlParams.get('state');
+      const code = urlParams.get("code");
+      const state = urlParams.get("state");
       await exchangeCodeForToken(code, state);
-      router.push('/');
+      router.push("/");
     };
 
     fetchToken();
@@ -23,4 +23,4 @@ export default function Callback() {
       Logging you in...
     </Loading>
   );
-};
+}
