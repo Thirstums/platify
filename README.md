@@ -1,5 +1,6 @@
 # Platify
 ----------------------------------------------------------------------------------------
+# Full Version Readme Coming soon
 
 Platify is a Spotify Playlist Generator using AI for IOS and Android.
 
@@ -146,4 +147,4 @@ For some prompt examples you can either look at the one we used in this applicat
 
 In order to get it working outside of the well known **Chat GPT** You require Tokens and an API Key
 
-# Full Version Readme Coming soon
+
