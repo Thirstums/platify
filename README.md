@@ -145,3 +145,5 @@ To get started all you need is a basic prompt. The prompt essentially is how you
 For some prompt examples you can either look at the one we used in this application or have a look at this [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts) git repository
 
 In order to get it working outside of the well known **Chat GPT** You require Tokens and an API Key
+
+# Full Version Readme Coming soon
