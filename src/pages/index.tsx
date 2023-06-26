@@ -107,9 +107,10 @@ export default function Home() {
               name="UserInputforms"
               placeholder={'Add a Tag. For example: "90s music"'}
             />
-            <button type="button" className={styles.addTagsbtn}>
+            {/*<button type="button" className={styles.addTagsbtn}>
               Add Tags
             </button>
+  */}
           </div>
           <div className={styles.generatebtn}>
             <button type="submit">Generate Playlist</button>
